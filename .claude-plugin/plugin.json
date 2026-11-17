@@ -1,0 +1,26 @@
+{
+  "name": "bushnell",
+  "displayName": "Bushnell",
+  "version": "1.0.0",
+  "description": "Progressive disclosure: immediate value and meaningful depth across repeated use.",
+  "author": {
+    "name": "Jason Wexler",
+    "url": "https://github.com/jwexler10"
+  },
+  "homepage": "https://github.com/jwexler10/bushnell-skill#readme",
+  "repository": "https://github.com/jwexler10/bushnell-skill",
+  "license": "MIT",
+  "keywords": [
+    "claude-skills",
+    "claude-code",
+    "ai-agents",
+    "agent-skills",
+    "codex",
+    "cursor",
+    "claude-cowork",
+    "mcp",
+    "progressive-disclosure",
+    "user-experience",
+    "data-visualization"
+  ]
+}

@@ -4,6 +4,25 @@
 
 An agent skill for progressive disclosure, drill-down interactions, layered visualizations, and products that reward repeated use.
 
+## Install in one command
+
+```bash
+npx skills add jwexler10/bushnell-skill
+```
+
+Choose Claude Code, Cursor, Codex, or another supported agent in the installer.
+Requires [Node.js](https://nodejs.org/) 22.20 or later. Installs to the current project
+by default; add `--global` for a user-wide installation. See the
+[skills CLI](https://github.com/vercel-labs/skills) for supported agents and options.
+
+For a noninteractive installation to Claude Code, Cursor, and Codex together:
+
+```bash
+npx skills add jwexler10/bushnell-skill --skill bushnell --agent claude-code cursor codex --yes
+```
+
+Prefer a graphical install? Use the Claude marketplace option below.
+
 ## What it does
 
 - States the first-encounter reward and the hundredth-use reward separately.
@@ -13,43 +32,80 @@ An agent skill for progressive disclosure, drill-down interactions, layered visu
 
 Depth means richer understanding and useful action. Extra controls, hidden essentials, and artificial unlocks do not supply it.
 
-## Install
+## Before vs. after
 
-This repository contains a portable, instruction-only agent skill. No API key,
-MCP server, executable script, or companion skill is required. Tools are useful
-when your task needs current information or inspection of an existing project.
+**Example request:** “Turn an analytics dashboard with twenty charts into something useful for beginners and experts.”
 
-1. Download this repository with **Code → Download ZIP**, or clone it:
+| Aspect | Without the skill: illustrative pitfall | With Bushnell: intended behavior |
+|---|---|---|
+| First encounter | Puts every chart on the page and adds collapsible sections. | Gives the initial surface one recognizable result and an obvious next action. |
+| Repeated use | Adds more settings and panels as the advanced experience. | Reveals greater precision, relationships, and supporting evidence through meaningful questions. |
+| Navigation | Replaces the overview whenever a detail opens. | Preserves context and state, with a clear route back at each layer. |
 
-   ```bash
-   git clone https://github.com/jwexler10/bushnell-skill.git
-   ```
+These are illustrative comparisons, not recorded model outputs or benchmark results.
+Actual results depend on the model, the prompt, and the evidence you provide.
 
-2. For a Codex project, copy the entire `skills/bushnell` folder into the target
-   project's `.agents/skills/` directory. The result should be:
+## Install as a Claude plugin
 
-   ```text
-   your-project/
-     .agents/
-       skills/
-         bushnell/
-           SKILL.md
-   ```
+This repository is both a standalone skill and a single-plugin marketplace. The
+plugin and the skills CLI install the same `SKILL.md`; choose one route per host
+to avoid duplicate installations.
 
-   Keep any supporting files inside that folder when copying. For user-wide local
-   Codex discovery, use `~/.agents/skills/bushnell/` instead. Choose one scope to avoid
-   installing duplicate copies.
+### Claude and Cowork: no terminal
 
-3. In Codex, invoke the skill with `$bushnell` followed by your task, or let the
-   agent select it when your task matches the description. If it does not appear,
-   restart Codex. See the [official skills guide](https://learn.chatgpt.com/docs/build-skills).
+1. Open **Plugins** (or **Customize → Plugins**, depending on your version).
+2. Choose **Add → Add marketplace → Add from a repository**.
+3. Enter `jwexler10/bushnell-skill` or `https://github.com/jwexler10/bushnell-skill`.
+4. Select **Bushnell** and add the plugin. Find its skill through `/` or the
+   skill picker; when namespaced commands are shown, use `/bushnell:bushnell`.
 
-For another agent that supports `SKILL.md`, use that agent's documented skills
-directory. You can also explicitly ask an agent to read and apply
-[`skills/bushnell/SKILL.md`](skills/bushnell/SKILL.md). Discovery and invocation syntax
-depend on the host.
+Availability and organization controls depend on your Claude plan and account.
+See [Anthropic's plugin installation guide](https://support.claude.com/en/articles/13837440-use-plugins-in-claude).
+
+### Claude Code: marketplace commands
+
+Run these inside Claude Code:
+
+```text
+/plugin marketplace add jwexler10/bushnell-skill
+/plugin install bushnell@jwexler10-bushnell
+```
+
+Then invoke `/bushnell:bushnell` followed by your task. The marketplace is defined in
+[`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json), and the plugin
+in [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json).
+
+### Manual installation
+
+Download the repository using **Code → Download ZIP**, or clone it:
+
+```bash
+git clone https://github.com/jwexler10/bushnell-skill.git
+```
+
+Copy the entire `skills/bushnell` folder, including any supporting files, into the
+appropriate directory in your target project:
+
+| Agent | Project skill directory | Invocation |
+|---|---|---|
+| Claude Code, direct skill | `.claude/skills/bushnell/` | `/bushnell` |
+| Codex | `.agents/skills/bushnell/` | `$bushnell` |
+| Cursor | `.cursor/skills/bushnell/` | Ask the agent to use Bushnell. |
+
+Each destination must contain `SKILL.md` directly. Other hosts may use different
+discovery or invocation rules; follow their documentation. See the
+[Codex skills guide](https://learn.chatgpt.com/docs/build-skills).
+
+This is an instruction-only skill: no API key, MCP server, companion skill, or
+executable script is required. Tools are useful when your actual task needs live
+information or inspection of an existing project.
 
 ## Try it
+
+The prompts below use Codex's `$bushnell` syntax. In Claude Code, use `/bushnell` for a
+direct skills installation or `/bushnell:bushnell` for a marketplace plugin. In Cursor,
+ask the agent to use Bushnell and give it the same task.
+
 
 ```text
 $bushnell Design a project dashboard that helps a newcomer immediately and still supports deep investigation after months of use.
@@ -74,6 +130,8 @@ itself authorize changes, purchases, deployments, or other external actions.
 
 ## Repository contents
 
+- [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json): Claude plugin metadata.
+- [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json): installable marketplace catalog.
 - [`skills/bushnell/SKILL.md`](skills/bushnell/SKILL.md): the complete skill.
 - [`LICENSE`](LICENSE): MIT license for these instructions and documentation.
 
